@@ -3,7 +3,10 @@ import requests
 
 class SpotifyUserData:
     def __init__(self, user_json):
-        self.top_artists_list = user_json["items"][0]["name"]
+        top_artists_list = []
+        for item in user_json["items"]:
+            top_artists_list.append(item["name"])
+        self.top_artists_list = top_artists_list
 
 
 def main():
