@@ -11,7 +11,7 @@ def choose_song(genius, artist_name):
     song_num = randint(0, 4)
     return songs[song_num]
 
-def guess_song_easy(song):
+def guess_song_medium(song):
     """Takes a song and prints the lyrics one line at a time, allowing the user to guess the title of the song every loop"""
     lyrics = song.lyrics
     lines = lyrics.split("\n")
@@ -26,7 +26,7 @@ def guess_song_easy(song):
     else:
         print("Great job! {} is correct!".format(song.title))
 
-def guess_song_medium(song):
+def guess_song_easy(song):
     """Takes a song and chooses a line to remove a lyric from. Prints all lines up until line with removed character. Prints line with removed character and asks user to guess 5 times."""
     lyrics = song.lyrics
     lines = lyrics.split("\n")  # creates a list of all lyrics
@@ -45,9 +45,33 @@ def guess_song_medium(song):
         guess = input("What is the missing word?")
         guess_num += 1
     if guess == removed_word:
-        print("Great guess! You were right, the missing word was {}.".format(removed_word))
+        print("Great guess! You were right, the missing word was '{}'.".format(removed_word))
     else:
-        print("Better luck next time! The missing word was {}.".format(removed_word))
+        print("Better luck next time! The missing word was '{}'.".format(removed_word))
+    print()
+
+
+def guess_song_hard(song):
+    """Takes a song and chooses a line to remove a lyric from. Prints out aforementioned line only with a single word removed and asks user to guess the word"""
+    lyrics = song.lyrics
+    lines = lyrics.split("\n")  # creates a list of all lyrics
+    line_num_to_affect = randint(1, len(lines)) # finds the index of a line which will be accessed
+    line_to_affect = lines[line_num_to_affect].split()  # creates a list of all words in the accessed line
+    word_to_remove_num = randint(0, len(line_to_affect))  # creates an index of the word to remove from the line
+    removed_word = line_to_affect[word_to_remove_num]  # stores the word to be removed
+    line_to_affect[word_to_remove_num] = "_" * len(removed_word)
+    for i in range(len(line_to_affect)):
+        print(line_to_affect[i], end=" ")
+    guess_num = 1
+    guess = ""
+    while guess_num <= 5 and guess != removed_word:
+        guess = input("What is the missing word?")
+        guess_num += 1
+    if guess == removed_word:
+        print("Great guess! You were right, the missing word was '{}'.".format(removed_word))
+    else:
+        print("Better luck next time! The missing word was '{}'.".format(removed_word))
+    print()
 
 def main():
     genius = lyricsgenius.Genius("-MiAj7fIqCsxQ0Unn95GJVh6DlRwnyiQjG16nDTk_MDoowDwekuJX5pwVZLRcmng")
@@ -56,6 +80,7 @@ def main():
     # ^removes things like [chorus] or [verse 1]
     song = choose_song(genius, "Faye Webster")
     #guess_song_easy(song)
-    guess_song_medium(song)
+    #guess_song_medium(song)
+    guess_song_hard(song)
 
 main()
