@@ -8,7 +8,14 @@ def choose_song(genius, artist_name):
     # ^you can sort by: "title", "popularity"
     # ^^by removing max_songs it will store all songs from artist
     songs = artist_obj.songs
-    song_num = randint(1, 5)
+    song_num = randint(0, 4)
+    return songs[song_num]
+
+def guess_song(song):
+    """Takes a song and prints the lyrics one line at a time, allowing the user to guess the title of the song every loop"""
+    lyrics = song.lyrics
+    print(lyrics)
+
 
 
 
@@ -17,6 +24,7 @@ def main():
     # ^creates an object which stores the Genius API request
     genius.remove_section_headers = True
     # ^removes things like [chorus] or [verse 1]
-    songs = choose_song(genius, "Faye Webster")
+    song = choose_song(genius, "Faye Webster")
+    guess_song(song)
 
 main()
