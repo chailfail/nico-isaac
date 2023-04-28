@@ -11,10 +11,9 @@ client_id = '312a3338244443048ebaea1d463ab3bb'
 client_secret = '6dc91bcc6e224d578eb943b890235fc4'
 redirect_uri = 'http://localhost:9000'
 
-# OAuth endpoints given in the Spotify API documentation
-# https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
 authorization_base_url = "https://accounts.spotify.com/authorize"
 token_url = "https://accounts.spotify.com/api/token"
+
 # https://developer.spotify.com/documentation/general/guides/authorization/scopes/
 scope = ["user-top-read"]
 
@@ -25,23 +24,12 @@ authorization_url, state = spotify.authorization_url(authorization_base_url)
 print('Please go here and authorize: ', authorization_url)
 
 # Get the authorization verifier code from the callback url
-redirect_response = input('\n\nPaste the full redirect URL here: ')
+redirect_response = input('\nPaste the full redirect URL here: ')
 
 auth = HTTPBasicAuth(client_id, client_secret)
 
 # Fetch the access token
 token = spotify.fetch_token(token_url, auth=auth, authorization_response=redirect_response)
-
-print(token)
-
-# Fetch a protected resource, i.e. user profile
-r = spotify.get('https://api.spotify.com/v1/me')
-print(r.content)
-
-
-
-
-
 
 
 class SpotifyUserData:
@@ -61,23 +49,10 @@ def main():
     }
 
     spotify_api_call = requests.get("https://api.spotify.com/v1/me/top/artists?limit=10&offset=0", headers=headers)
-    print("Status code:", spotify_api_call.status_code)
-    print("Response content:", spotify_api_call.content)
-
-    try:
-        spotify_json = spotify_api_call.json()
-    except Exception as e:
-        print(f"Error decoding JSON: {e}")
-        return
     spotify_json = spotify_api_call.json()
-    print(spotify_json)
-    print(spotify_json)
-    print(spotify_json["items"])
     spotify_data = SpotifyUserData(spotify_json)
     user_top_artists = spotify_data.top_artists_list
-    print(user_top_artists)
-    print("\n\n")
-    print("User's top artists:")
+    print("\nUser's top artists:")
     for artist in user_top_artists:
         print(artist)
 
