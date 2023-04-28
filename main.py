@@ -16,7 +16,7 @@ redirect_uri = 'http://localhost:9000'
 authorization_base_url = "https://accounts.spotify.com/authorize"
 token_url = "https://accounts.spotify.com/api/token"
 # https://developer.spotify.com/documentation/general/guides/authorization/scopes/
-scope = ["user-read-email", "playlist-read-collaborative", "user-top-read"]
+scope = ["user-top-read"]
 
 spotify = OAuth2Session(client_id, scope=scope, redirect_uri=redirect_uri)
 
