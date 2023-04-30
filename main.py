@@ -37,16 +37,6 @@ def authorize_and_get_token():
     return token["access_token"]
 
 
-def get_artists_top_tracks(artist, access_token):
-    """
-    Fetch and print an artist's top tracks from Spotify
-    :param artist: str, the name of the artist
-    :param access_token: str, the access token from Spotify
-    :return: a list of the artist's most popular tracks
-    """
-
-
-
 def main():
     """
     Main function that authenticates the user, fetches, and prints the user's top artists and tracks from Spotify
