@@ -47,9 +47,25 @@ def user_top_artists(access_token):
         print(artist)
 
 
+def user_top_tracks(access_token):
+    # Set the header with the access token
+    headers = {
+        "Authorization": f"Bearer {access_token}"
+    }
+    spotify_api_call = requests.get("https://api.spotify.com/v1/me/top/tracks?limit=10&offset=0", headers=headers)
+    spotify_json = spotify_api_call.json()
+    top_tracks_list = []
+    for item in spotify_json["items"]:
+        top_tracks_list.append(item["name"])
+    print("\nUser's top tracks:")
+    for track in top_tracks_list:
+        print(track)
+
+
 def main():
     access_token = authorize_and_get_token()
     user_top_artists(access_token)
+    user_top_tracks(access_token)
 
 
 main()
