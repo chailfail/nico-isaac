@@ -17,6 +17,10 @@ scope = ["user-top-read"]
 
 
 def authorize_and_get_token():
+    """
+    Authorize the user with Spotify and return the access token
+    :return: str, the access token from Spotify
+    """
     spotify = OAuth2Session(client_id, scope=scope, redirect_uri=redirect_uri)
     # Redirect user to Spotify for authorization
     authorization_url, state = spotify.authorization_url(authorization_base_url)
@@ -33,6 +37,10 @@ def authorize_and_get_token():
 
 
 def user_top_artists(access_token):
+    """
+    Fetch and print the user's top artists from Spotify
+    :param access_token: str, the access token from Spotify
+    """
     # Set the header with the access token
     headers = {
         "Authorization": f"Bearer {access_token}"
@@ -48,6 +56,10 @@ def user_top_artists(access_token):
 
 
 def user_top_tracks(access_token):
+    """
+    Fetch and print the user's top tracks from Spotify
+    :param access_token: str, the access token from Spotify
+    """
     # Set the header with the access token
     headers = {
         "Authorization": f"Bearer {access_token}"
@@ -63,6 +75,9 @@ def user_top_tracks(access_token):
 
 
 def main():
+    """
+    Main function that authenticates the user, fetches, and prints the user's top artists and tracks from Spotify
+    """
     access_token = authorize_and_get_token()
     user_top_artists(access_token)
     user_top_tracks(access_token)
