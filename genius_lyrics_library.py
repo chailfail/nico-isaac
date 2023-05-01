@@ -13,6 +13,8 @@ class Song:
         # ^^by removing max_songs it will store all songs from artist
         self.song = None
         self.choose_song()
+        self.lyrics = self.song.lyrics
+        self.title = self.song.title
 
     def choose_song(self):
         """ :returns: one song from an artist's five most popular."""
@@ -29,7 +31,7 @@ class GuessingGames:
 
     def __init__(self, song):
         self.song = song
-        self.lyrics = song.lyrics
+        self.lyrics = self.song.lyrics
         self.lines = self.lyrics.split("\n")
         self.title = song.title
 
@@ -99,4 +101,4 @@ def main():
     games.hard()
 
 
-main()
+# main()

@@ -21,6 +21,7 @@ class SpotifyUser:
         print("\n{}'s top artists:".format(self.display_name))
         for artist in top_artists_list:
             print(artist)
+        return top_artists_list
 
     def get_user_top_tracks(self, access_token):
         """
@@ -38,3 +39,4 @@ class SpotifyUser:
         print("\n{}'s top tracks:".format(self.display_name))
         for track in top_tracks_list:
             print(track)
+        return top_tracks_list
