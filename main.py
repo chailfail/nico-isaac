@@ -23,7 +23,9 @@ def main():
 
     current_song = Song(random_artist)
     current_game = GuessingGames(current_song)
-    current_game.easy()
+    # current_game.easy()
+    current_game.medium()
+    # current_game.hard()
 
 
 main()
