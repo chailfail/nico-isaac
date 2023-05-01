@@ -1,7 +1,7 @@
 import unittest
 import requests
 from spotify_user import SpotifyUser
-from main import authorize_and_get_token
+from spotify_library import authorize_and_get_token
 
 access_token = authorize_and_get_token()
 headers = {
