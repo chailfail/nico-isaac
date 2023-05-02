@@ -71,7 +71,7 @@ class GuessingGames:
             print("Great job! {} is correct!".format(self.title))
 
     def hard(self):
-        """Hard version of guessing game"""
+        """Hard version of guessing game""" # make all games loop a few times, ask a few different questions
         line_num_to_affect = randint(1, len(self.lines))  # finds the index of a line which will be accessed
         line_to_affect = self.lines[line_num_to_affect].split()  # creates a list of all words in the accessed line
         word_to_remove_num = randint(0, len(line_to_affect)-1)  # creates an index of the word to remove from the line
@@ -92,7 +92,8 @@ class GuessingGames:
 
 
 def main():
-    new_song = Song("Faye Webster")
+    print("start")
+    new_song = Song("Ariana Grande")
     games = GuessingGames(new_song.song)
     games.easy()
     new_song.choose_song()
@@ -101,4 +102,5 @@ def main():
     games.hard()
 
 
-# main()
+if __name__ == "__main__":
+    main()
