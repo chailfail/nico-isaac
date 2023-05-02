@@ -4,11 +4,11 @@ from random import randint
 
 class Song:
 
-    def __init__(self, artist):
+    def __init__(self, artist, artist_id=None):
         self.artist = artist
         self.genius = lyricsgenius.Genius("-MiAj7fIqCsxQ0Unn95GJVh6DlRwnyiQjG16nDTk_MDoowDwekuJX5pwVZLRcmng")  # API key
         self.genius.remove_section_headers = True  # removes [chorus] and [verse]
-        self.artist_obj = self.genius.search_artist(artist, max_songs=5, sort="popularity")
+        self.artist_obj = self.genius.search_artist(artist, max_songs=5, sort="popularity", artist_id=artist_id)
         # ^you can sort by: "title", "popularity"
         # ^^by removing max_songs it will store all songs from artist
         self.song = None

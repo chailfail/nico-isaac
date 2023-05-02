@@ -50,6 +50,3 @@ def main():
     current_user = SpotifyUser(spotify_json)
     current_user.get_user_top_artists(access_token)
     current_user.get_user_top_tracks(access_token)
-
-
-main()
