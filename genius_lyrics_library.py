@@ -24,7 +24,11 @@ class Song:
 
     def change_artist(self, new_artist):
         """ :param: A new artist to look for. changes necessary information."""
-        self.__init__(new_artist)
+        self.artist = new_artist
+        self.artist_obj = self.genis.search_artist(new_artist, max_songs=5, sort="popularity", artist_id=None)
+        self.choose_song()
+        self.lyrics = self.song.lyrics
+        self.title = self.song.title
 
 
 class GuessingGames:
