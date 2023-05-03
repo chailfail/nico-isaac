@@ -5,8 +5,7 @@
 [Project Notes Google Doc](https://docs.google.com/document/d/1NXpK9OvyxsLzajeomOTyXSqDQzA0lvrBeQZMqZY2CDU/edit?usp=sharing)
 
 # Class Diagram
-(add UML diagram)
-![UML Diagram](./path_to_image.png)
+![UML Diagram](UMLDiagram.png)
 
 # Purpose
 The overall project is a fun, interactive guessing game that challenges users to identify missing words or song titles
