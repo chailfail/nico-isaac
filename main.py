@@ -4,6 +4,7 @@ from spotify_user import SpotifyUser
 from spotify_library import authorize_and_get_token
 from genius_lyrics_library import Song, GuessingGames
 
+# dict of genius artist ids with obscure or generic names to make them easier for the geniuslyrics library to find
 artist_ids = {
     "Jons": 1055422,
 }

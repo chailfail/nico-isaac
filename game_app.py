@@ -7,7 +7,7 @@ from genius_lyrics_library import Song, GuessingGames
 
 app = Flask(__name__)
 
-
+# dict of genius artist ids with obscure or generic names to make them easier for the geniuslyrics library to find
 artist_ids = {
     "Jons": 1055422,
 }
@@ -40,8 +40,6 @@ def easy():
     user_top_artists = current_user.get_user_top_artists(access_token)
     user_top_tracks = current_user.get_user_top_tracks(access_token)
     random_artist = user_top_artists[randint(0, 9)]
-    # random_artist = user_top_artists[2]
-    # ^ to test a specific artist
     artist_id = artist_ids.get(random_artist)
     print()
     current_song = Song(random_artist, artist_id=artist_id)
