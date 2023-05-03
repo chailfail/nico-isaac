@@ -9,7 +9,11 @@ artist_ids = {
 }
 
 
-# note: The Beatles sometimes raises a TimeoutError, not sure why
+# FIXME: The Beatles sometimes raises a TimeoutError, not sure why
+# FIXME: when guessing words, punctuation is sometimes included
+# FIXME: the wrong apostrophe in a lyric can make a correct guess incorrect (’ instead of ')
+# TODO: add ability to guess lyrics from user's top tracks instead of artists
+
 def main():
     access_token = authorize_and_get_token()
     headers = {
@@ -27,9 +31,17 @@ def main():
     print()
     current_song = Song(random_artist, artist_id=artist_id)
     current_game = GuessingGames(current_song)
-    # current_game.easy()
-    # current_game.medium()
-    current_game.hard()
+    gamemode = None
+    while gamemode != "easy" and gamemode != "medium" and gamemode != "hard":
+        gamemode = input("\nEnter gamemode (easy, medium, or hard): ")
+        if gamemode.lower() == "easy":
+            current_game.easy()
+        elif gamemode.lower() == "medium":
+            current_game.medium()
+        elif gamemode.lower() == "hard":
+            current_game.hard()
+        else:
+            print("Please enter a valid gamemode.")
 
 
 main()
