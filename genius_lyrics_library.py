@@ -71,7 +71,11 @@ class GuessingGames:
         self.lines[-1] = final_word
 
     def easy(self):
-        """Easy version of guessing game"""
+        """
+        Easy version of guessing game.
+        In this version, the player is given a few lines of lyrics with one word missing.
+        The player has 5 attempts to guess the missing word. The game consists of 3 rounds.
+        """
         wins = 0
         losses = 0
         for i in range(3):
@@ -102,7 +106,11 @@ class GuessingGames:
         print("Great game! You had {} wins and {} losses.".format(wins, losses))
 
     def medium(self):
-        """Medium version of guessing game"""
+        """
+        Medium version of guessing game.
+        In this version, the player is given the song title and a list of albums by the artist.
+        The player must guess which album the song is from. The player has 3 attempts to guess the correct album.
+        """
         wins = 0
         losses = 0
         print(f"\nSong: {self.title}")
@@ -146,7 +154,11 @@ class GuessingGames:
         print("Great game! You had {} wins and {} losses.".format(wins, losses))
 
     def hard(self):
-        """Hard version of guessing game"""  # make all games loop a few times, ask a few different questions
+        """
+        Hard version of guessing game.
+        In this version, the player is given only one line of lyrics with one word missing.
+        The player has 5 attempts to guess the missing word. The game consists of 3 rounds.
+        """
         wins = 0
         losses = 0
         for i in range(3):
@@ -173,17 +185,13 @@ class GuessingGames:
 
 
 def main():
+    # for testing
     print("start")
     new_song = Song("steve lacy")
     print(new_song.lyrics)
     games = GuessingGames(new_song.song)
     print(games.lines)
     print(new_song)
-    # games.easy()
-    # new_song.choose_song()
-    # games.medium()
-    # new_song.choose_song()
-    # games.hard()
 
 
 if __name__ == "__main__":

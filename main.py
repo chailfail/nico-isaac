@@ -15,6 +15,17 @@ artist_ids = {
 # FIXME: The Beatles sometimes raises a TimeoutError, not sure why
 
 def main():
+    """
+    Main function to run the lyric guessing game.
+
+    This function authorizes the Spotify API, retrieves the user's top artists and tracks,
+    and prompts the user to choose a game mode and difficulty. The game mode can be either
+    'artist' or 'track', and the difficulty can be 'easy', 'medium', or 'hard'.
+
+    In 'artist' mode, a random artist from the user's top artists is chosen, while in 'track'
+    mode, a random track from the user's top tracks is selected. The user then plays the
+    guessing game based on the chosen difficulty.
+    """
     access_token = authorize_and_get_token()
     headers = {
         "Authorization": f"Bearer {access_token}"
