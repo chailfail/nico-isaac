@@ -35,8 +35,8 @@ class SpotifyUser:
         spotify_json = spotify_api_call.json()
         top_tracks_list = []
         for item in spotify_json["items"]:
-            top_tracks_list.append(item["name"])
+            top_tracks_list.append({"title": item["name"], "artist": item["artists"][0]["name"]})
         print("\n{}'s top tracks:".format(self.display_name))
         for track in top_tracks_list:
-            print(track)
+            print("{} by {}".format(track["title"], track["artist"]))
         return top_tracks_list

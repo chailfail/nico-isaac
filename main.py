@@ -25,24 +25,35 @@ def main():
     current_user = SpotifyUser(spotify_json)
     user_top_artists = current_user.get_user_top_artists(access_token)
     user_top_tracks = current_user.get_user_top_tracks(access_token)
-    random_artist = user_top_artists[randint(0, 9)]
-    # random_artist = user_top_artists[2]
-    # ^ to test a specific artist
-    artist_id = artist_ids.get(random_artist)
-    print()
-    current_song = Song(random_artist, artist_id=artist_id)
-    current_game = GuessingGames(current_song)
-    gamemode = None
-    while gamemode != "easy" and gamemode != "medium" and gamemode != "hard":
-        gamemode = input("\nEnter gamemode (easy, medium, or hard): ")
-        if gamemode.lower() == "easy":
-            current_game.easy()
-        elif gamemode.lower() == "medium":
-            current_game.medium()
-        elif gamemode.lower() == "hard":
-            current_game.hard()
+    current_song = None
+    game_mode = None
+    while game_mode != "artist" and game_mode != "track":
+        game_mode = input("\nChoose gamemode (artist or track): ").lower()
+        if game_mode == "artist":
+            random_artist = user_top_artists[randint(0, 9)]
+            artist_id = artist_ids.get(random_artist)
+            print()
+            current_song = Song(random_artist, artist_id=artist_id)
+        elif game_mode == "track":
+            while current_song is None:
+                random_track = user_top_tracks[randint(0, 9)]
+                current_song = Song(artist=random_track["artist"], title=random_track["title"])
+                if current_song.song is None:
+                    current_song = None
         else:
             print("Please enter a valid gamemode.")
+    current_game = GuessingGames(current_song)
+    difficulty = None
+    while difficulty != "easy" and difficulty != "medium" and difficulty != "hard":
+        difficulty = input("\nEnter difficulty (easy, medium, or hard): ")
+        if difficulty.lower() == "easy":
+            current_game.easy()
+        elif difficulty.lower() == "medium":
+            current_game.medium()
+        elif difficulty.lower() == "hard":
+            current_game.hard()
+        else:
+            print("Please enter a valid difficulty.")
 
 
 main()

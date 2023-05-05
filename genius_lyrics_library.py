@@ -4,21 +4,27 @@ from random import randint
 
 class Song:
 
-    def __init__(self, artist, artist_id=None):
+    def __init__(self, artist, title=None, artist_id=None):
         self.artist = artist
         self.genius = lyricsgenius.Genius("-MiAj7fIqCsxQ0Unn95GJVh6DlRwnyiQjG16nDTk_MDoowDwekuJX5pwVZLRcmng")  # API key
         self.genius.remove_section_headers = True  # removes [chorus] and [verse]
-        self.artist_obj = self.genius.search_artist(artist, max_songs=5, sort="popularity", artist_id=artist_id)
-        # ^you can sort by: "title", "popularity"
-        # ^^by removing max_songs it will store all songs from artist
-        self.song = None
-        self.choose_song()
-        self.lyrics = self.song.lyrics
-        self.title = self.song.title
+        if title:
+            self.gamemode = "track"
+            self.song = self.genius.search_song(title, artist)
+        else:
+            self.gamemode = "artist"
+            self.artist_obj = self.genius.search_artist(artist, max_songs=5, sort="popularity", artist_id=artist_id)
+            # ^you can sort by: "title", "popularity"
+            # ^^by removing max_songs it will store all songs from artist
+            self.song = None
+            self.choose_song()
+        if self.song is not None:
+            self.lyrics = self.song.lyrics
+            self.title = self.song.title
 
     def choose_song(self):
         """ :returns: one song from an artist's five most popular."""
-        songs = self.artist_obj.songs  # gets the artists 5 most popular songs
+        songs = self.artist_obj.songs  # gets the artist's 5 most popular songs
         song_num = randint(0, 4)
         self.song = songs[song_num]
 
@@ -60,47 +66,62 @@ class GuessingGames:
                 break
         self.lines[-1] = final_word
 
-
     def easy(self):
         """Easy version of guessing game"""
-        line_num_to_affect = randint(1, len(self.lines))  # finds the index of a line which will be accessed
-        for i in range(1, line_num_to_affect):
-            print(self.lines[i])  # prints the lyrics up until the line accessed
-        line_to_affect = self.lines[line_num_to_affect].split()  # creates a list of all words in the accessed line
-        word_to_remove_num = randint(0, len(line_to_affect))  # creates an index of the word to remove from the line
-        removed_word = line_to_affect[word_to_remove_num]  # stores the word to be removed
-        line_to_affect[word_to_remove_num] = "_" * len(removed_word)
-        for i in range(len(line_to_affect)):
-            print(line_to_affect[i], end=" ")
-        guess_num = 1
-        guess = ""
-        while guess_num <= 5 and guess != removed_word:
-            guess = input("\nWhat is the missing word?\n")
-            guess_num += 1
-        if guess == removed_word:
-            print("Great guess! You were right, the missing word was '{}'.".format(removed_word))
-        else:
-            print("Better luck next time! The missing word was '{}'.".format(removed_word))
-        print()
+        wins = 0
+        losses = 0
+        for i in range(3):
+            line_num_to_affect = randint(1, len(self.lines) - 1)  # finds the index of a line which will be accessed
+            for j in range(line_num_to_affect):
+                print(self.lines[j])  # prints the lyrics up until the line accessed
+            line_to_affect = self.lines[line_num_to_affect].split(" ")  # use the line with index line_num_to_affect and split it into words
+            while len(line_to_affect) < 2:  # Check if the line has at least two words
+                line_num_to_affect = randint(1, len(self.lines) - 1)
+                line_to_affect = self.lines[line_num_to_affect].split(" ")
+            word_to_remove_num = randint(0, len(line_to_affect) - 1)  # picks random word number to remove
+            removed_word = line_to_affect[word_to_remove_num]  # stores the word to be removed
+            line_to_affect[word_to_remove_num] = "_" * len(removed_word)
+            for word in line_to_affect:
+                print(word, end=" ")
+            guess_num = 1
+            guess = ""
+            while guess_num <= 5 and guess != removed_word:
+                guess = input("\nWhat is the missing word?\n")
+                guess_num += 1
+            if guess == removed_word:
+                print("Great guess! You were right, the missing word was '{}'.".format(removed_word))
+                wins += 1
+            else:
+                print("Better luck next time! The missing word was '{}'.".format(removed_word))
+                losses += 1
+            print()
+        print("Great game! You had {} wins and {} losses.".format(wins, losses))
 
     def medium(self):
         """Medium version of guessing game"""
-        line = 1
-        guess = ""
-        while guess != self.title and line < 6:
-            print(self.lines[line])
-            guess = input("\nWhat is the title?\n")
-            line += 1
-        if line > 5:
-            print("The song title was {}. Better luck next time!".format(self.title))
-        else:
-            print("Great job! {} is correct!".format(self.title))
-
-    def hard(self):
-        """Hard version of guessing game""" # make all games loop a few times, ask a few different questions
         wins = 0
         losses = 0
-        for i in range(5):
+        for i in range(3):
+            line = 1
+            guess = ""
+            while guess != self.title and line < 6:
+                print(self.lines[line])
+                guess = input("\nWhat is the title?\n")
+                line += 1
+            if line > 5:
+                print("The song title was {}. Better luck next time!".format(self.title))
+                losses += 1
+            else:
+                print("Great job! {} is correct!".format(self.title))
+                wins += 1
+            print()
+        print("Great game! You had {} wins and {} losses.".format(wins, losses))
+
+    def hard(self):
+        """Hard version of guessing game"""  # make all games loop a few times, ask a few different questions
+        wins = 0
+        losses = 0
+        for i in range(3):
             line_num_to_affect = randint(1, len(self.lines))  # finds the index of a line which will be accessed
             line_to_affect = self.lines[line_num_to_affect].split()  # creates a list of all words in the accessed line
             word_to_remove_num = randint(0, len(line_to_affect)-1)  # creates an index of the word to remove from the line
@@ -133,7 +154,7 @@ def main():
     # new_song.choose_song()
     # games.medium()
     # new_song.choose_song()
-    #games.hard()
+    # games.hard()
 
 
 if __name__ == "__main__":
