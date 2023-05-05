@@ -10,10 +10,9 @@ artist_ids = {
 }
 
 
-# FIXME: The Beatles sometimes raises a TimeoutError, not sure why
 # FIXME: when guessing words, punctuation is sometimes included
 # FIXME: the wrong apostrophe in a lyric can make a correct guess incorrect (’ instead of ')
-# TODO: add ability to guess lyrics from user's top tracks instead of artists
+# FIXME: The Beatles sometimes raises a TimeoutError, not sure why
 
 def main():
     access_token = authorize_and_get_token()
