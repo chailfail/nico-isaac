@@ -10,6 +10,7 @@ artist_ids = {
 }
 
 
+# FIXME: medium mode can sometimes mess up and get the wrong list of albums due to the nature of album search method
 # FIXME: when guessing words, punctuation is sometimes included
 # FIXME: the wrong apostrophe in a lyric can make a correct guess incorrect (’ instead of ')
 # FIXME: The Beatles sometimes raises a TimeoutError, not sure why
