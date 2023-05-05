@@ -122,16 +122,25 @@ class GuessingGames:
                     correct_album = album['name']
                     break
         while attempts > 0:
-            guess = int(input("\nGuess the album number (1-{}): ".format(len(self.albums)))) - 1
-            if self.albums[guess]['name'] == correct_album:
-                print("Great job! That's the correct album!")
-                wins += 1
-                break
-            else:
-                print("Sorry, that's not the correct album. Try again.")
-                attempts -= 1
+            try:
+                guess = int(input("\nGuess the album number (1-{}): ".format(len(self.albums)))) - 1
+                if guess < 0 or guess >= len(self.albums):
+                    print("Invalid guess. Please enter a number between 1 and {}.".format(len(self.albums)))
+                    continue
+                if self.albums[guess]['name'] == correct_album:
+                    print("Great job! That's the correct album!")
+                    wins += 1
+                    break
+                else:
+                    print("Sorry, that's not the correct album. Try again.")
+                    attempts -= 1
+            except ValueError:
+                print("Invalid input. Please enter a number.")
         if attempts == 0:
-            print(f"The correct album was {correct_album}. Better luck next time!")
+            if correct_album is not None:
+                print(f"The correct album was {correct_album}. Better luck next time!")
+            else:
+                print("Sorry, we couldn't find the correct album for this song. Better luck next time!")
             losses += 1
         print()
         print("Great game! You had {} wins and {} losses.".format(wins, losses))
